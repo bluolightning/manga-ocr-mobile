@@ -1,0 +1,23 @@
+import type { MarkdownOptions } from 'vitepress'
+import { attrs } from '@mdit/plugin-attrs'
+import { figure } from '@mdit/plugin-figure'
+import { imgLazyload } from '@mdit/plugin-img-lazyload'
+import { imgMark } from '@mdit/plugin-img-mark'
+import { imgSize } from '@mdit/plugin-img-size'
+import { include } from '@mdit/plugin-include'
+
+const markdownConfig: MarkdownOptions = {
+    config: (md) => {
+        md
+            .use(attrs)
+            .use(figure)
+            .use(imgLazyload)
+            .use(imgMark)
+            .use(imgSize)
+            .use(include, {
+                currentPath: (env) => env.filePath,
+            })
+    },
+}
+
+export default markdownConfig

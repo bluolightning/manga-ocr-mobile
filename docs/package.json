@@ -1,0 +1,29 @@
+{
+  "name": "manga-ocr-mobile-docs",
+  "type": "module",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Technical documentation for Manga OCR Mobile",
+  "scripts": {
+    "dev": "vitepress dev src",
+    "build": "vitepress build src",
+    "preview": "vitepress preview src"
+  },
+  "dependencies": {
+    "@mdit/plugin-attrs": "0.23.3",
+    "@mdit/plugin-figure": "0.22.2",
+    "@mdit/plugin-img-lazyload": "0.22.1",
+    "@mdit/plugin-img-mark": "0.22.2",
+    "@mdit/plugin-img-size": "0.22.3",
+    "@mdit/plugin-include": "0.22.2",
+    "element-plus": "2.11.7",
+    "markdown-it": "^14.1.0",
+    "unplugin-element-plus": "0.11.1",
+    "vitepress": "1.6.4",
+    "vue": "^3.5.24"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "typescript": "^5.0.0"
+  }
+}

@@ -1,0 +1,104 @@
+/* Custom styles */
+:root {
+    --vp-c-brand-1: #3e6ec5;
+    --vp-home-hero-name-color: transparent;
+    --vp-home-hero-name-background: linear-gradient(135deg, #3e6ec5 0%, #64b5f6 100%);
+}
+
+.VPFeature {
+    border-radius: 12px !important;
+    background-color: var(--vp-c-bg-soft) !important;
+    border: 1px solid var(--vp-c-border) !important;
+    transition: all 0.3s ease;
+    padding: 24px !important;
+}
+
+.VPFeature:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    border-color: var(--vp-c-brand-1) !important;
+}
+
+.VPFeature .icon {
+    background-color: var(--vp-c-bg-mute);
+    width: 48px;
+    height: 48px;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    margin-bottom: 20px !important;
+    font-size: 24px;
+    border: 1px solid var(--vp-c-divider);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.VPFeature h2 {
+    font-weight: 700 !important;
+    font-size: 20px !important;
+    margin-bottom: 12px !important;
+    color: var(--vp-c-text-1) !important;
+    border-top: none !important;
+    padding-top: 0 !important;
+    margin-top: 0 !important;
+}
+
+.VPFeature .details {
+    font-size: 15px !important;
+    line-height: 1.6 !important;
+    color: var(--vp-c-text-2) !important;
+    margin-bottom: 20px !important;
+}
+
+.VPFeature .link {
+    color: var(--vp-c-brand-1) !important;
+    font-weight: 600 !important;
+    font-size: 15px !important;
+    display: flex;
+    align-items: center;
+    text-decoration: none !important;
+}
+
+.VPFeature .link::after {
+    content: ' →';
+    margin-left: 4px;
+    transition: transform 0.2s ease;
+}
+
+.VPFeature:hover .link::after {
+    transform: translateX(4px);
+}
+
+/* Home page content adjustments */
+.vp-doc h2 {
+    border-top: 1px solid var(--vp-c-divider);
+    padding-top: 48px;
+    margin-top: 48px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+}
+
+.vp-doc h3 {
+    margin-top: 32px;
+    font-weight: 700;
+    color: var(--vp-c-brand-1);
+}
+
+.vp-doc ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.vp-doc li {
+    padding: 8px 0;
+    border-bottom: 1px solid var(--vp-c-bg-soft);
+    display: flex;
+    align-items: center;
+}
+
+.vp-doc li::before {
+    content: '•';
+    color: var(--vp-c-brand-1);
+    font-weight: bold;
+    margin-right: 12px;
+}
