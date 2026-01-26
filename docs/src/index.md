@@ -22,8 +22,8 @@ features:
   - title: High Performance
     icon: 📊
     details: Achieves ~7.4% CER and ~73% accuracy, rivaling much larger standard models.
-    link: /guides/getting-started
-    linkText:
+    link: /guides/training-details
+    linkText: View Details
   - title: Privacy First
     icon: 🔒
     details: All text recognition happens locally on your device—no data ever leaves.

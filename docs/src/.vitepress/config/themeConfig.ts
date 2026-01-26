@@ -16,6 +16,7 @@ const themeConfig: DefaultTheme.Config = {
                 { text: 'Getting Started', link: '/guides/getting-started' },
                 { text: 'Encoder Specs', link: '/guides/encoder-specs' },
                 { text: 'Decoder Specs', link: '/guides/decoder-specs' },
+                { text: 'Training Details', link: '/guides/training-details' },
             ],
         },
     ],
