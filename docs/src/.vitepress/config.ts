@@ -5,6 +5,7 @@ import headConfig from './config/headConfig'
 import markdownConfig from './config/markdownConfig'
 
 export default defineConfig({
+  base: process.env.VITE_BASE || '/',
   outDir: '../dist',
   lastUpdated: true,
   cleanUrls: true,
