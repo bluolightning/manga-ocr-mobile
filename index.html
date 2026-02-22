@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>bluo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles/theme.css">
+    <link rel="stylesheet" href="../styles/styles.css">
+    <script>
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme === 'light') {
+        document.documentElement.classList.add('light');
+      }
+    </script>
+  </head>
+
+  <body class="theme-shared">
+    <nav class="top-nav">
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+        <span class="icon">
+          <span class="vpi-sun"></span>
+          <span class="vpi-moon"></span>
+        </span>
+      </button>
+      <a href="https://github.com/bluolightning" class="github-link" id="githubLink" aria-label="Link to Github" target="_blank" rel="noopener noreferrer">
+        <span class="icon">
+          <span class="vpi-github"></span>
+        </span>
+      </a>
+    </nav>
+    
+    <div class="background-effects">
+      <canvas id="gridCanvas" class="grid-canvas"></canvas>
+      <div class="glow-orb orb-1"></div>
+      <div class="glow-orb orb-2"></div>
+      <div class="glow-orb orb-3"></div>
+    </div>
+
+    <main class="container">
+      <header class="hero">
+        <h1 class="title">
+          <span class="gradient-text">bluolightning</span>
+        </h1>
+        <p class="subtitle">Hello Esteemed Guests!</p>
+        <p class="description">
+          Here's what you need to know about me: I make things, and I like penguins🐧
+        </p>
+      </header>
+
+      <section class="projects-grid">
+        <a href="./manga-ocr-mobile/" class="project-card">
+          <div class="card-content">
+            <h2 class="card-title">Manga OCR Mobile</h2>
+            <p class="card-desc">Technical documentation for Manga OCR Mobile.</p>
+            <div class="tags">
+              <span class="tag">Docs</span>
+              <span class="tag">ML</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Project 2 Placeholder -->
+        <a href="./project2/" class="project-card">
+          <div class="card-content">
+            <h2 class="card-title">Project Alpha</h2>
+            <p class="card-desc">temp project for testing</p>
+            <div class="tags">
+              <span class="tag">temp</span>
+            </div>
+          </div>
+        </a>
+      </section>
+    </main>
+
+    <script>
+      const canvas = document.getElementById('gridCanvas');
+      const ctx = canvas.getContext('2d');
+      const themeToggle = document.getElementById('themeToggle');
+      
+      let width, height;
+      let mouse = { x: undefined, y: undefined };
+      let lastMouse = { x: undefined, y: undefined };
+      
+      const gridSize = 50;
+      const rippleRadius = 300;
+      const rippleIntensity = 20;
+
+      let gridColor = getComputedStyle(document.documentElement).getPropertyValue('--grid-line').trim() || 'rgba(255, 255, 255, 0.05)';
+
+      function resize() {
+        width = window.innerWidth;
+        height = window.innerHeight;
+        canvas.width = width;
+        canvas.height = height;
+      }
+
+      window.addEventListener('resize', resize);
+      window.addEventListener('mousemove', (e) => {
+        mouse.x = e.clientX;
+        mouse.y = e.clientY;
+      });
+      window.addEventListener('mouseleave', () => {
+        mouse.x = undefined;
+        mouse.y = undefined;
+      });
+
+      resize();
+
+      function updateGridColor() {
+        // Give a tiny delay for the class to be applied and styles to recalculate
+        setTimeout(() => {
+          gridColor = getComputedStyle(document.documentElement).getPropertyValue('--grid-line').trim() || 'rgba(255, 255, 255, 0.05)';
+        }, 10);
+      }
+
+      function draw() {
+        ctx.clearRect(0, 0, width, height);
+        ctx.strokeStyle = gridColor;
+        ctx.lineWidth = 1;
+
+        if (mouse.x !== undefined) {
+          if (lastMouse.x === undefined) {
+            lastMouse.x = mouse.x;
+            lastMouse.y = mouse.y;
+          }
+          lastMouse.x += (mouse.x - lastMouse.x) * 0.1;
+          lastMouse.y += (mouse.y - lastMouse.y) * 0.1;
+        }
+
+        const effectiveMouse = (mouse.x !== undefined || (lastMouse.x !== undefined && Math.abs(mouse.x - lastMouse.x) > 0.1)) 
+          ? lastMouse 
+          : { x: -1000, y: -1000 };
+
+        // Horizontal lines
+        for (let y = 0; y <= height + gridSize; y += gridSize) {
+          ctx.beginPath();
+          for (let x = 0; x <= width + gridSize; x += 15) {
+            let dx = x - effectiveMouse.x;
+            let dy = y - effectiveMouse.y;
+            let dist = Math.sqrt(dx * dx + dy * dy);
+            
+            let offsetY = 0;
+            if (dist < rippleRadius) {
+              let force = (rippleRadius - dist) / rippleRadius;
+              offsetY = Math.sin(dist / 30 - Date.now() / 200) * rippleIntensity * force;
+            }
+
+            if (x === 0) ctx.moveTo(x, y + offsetY);
+            else ctx.lineTo(x, y + offsetY);
+          }
+          ctx.stroke();
+        }
+
+        // Vertical lines
+        for (let x = 0; x <= width + gridSize; x += gridSize) {
+          ctx.beginPath();
+          for (let y = 0; y <= height + gridSize; y += 15) {
+            let dx = x - effectiveMouse.x;
+            let dy = y - effectiveMouse.y;
+            let dist = Math.sqrt(dx * dx + dy * dy);
+            
+            let offsetX = 0;
+            if (dist < rippleRadius) {
+              let force = (rippleRadius - dist) / rippleRadius;
+              offsetX = Math.sin(dist / 30 - Date.now() / 200) * rippleIntensity * force;
+            }
+
+            if (y === 0) ctx.moveTo(x + offsetX, y);
+            else ctx.lineTo(x + offsetX, y);
+          }
+          ctx.stroke();
+        }
+
+        requestAnimationFrame(draw);
+      }
+
+      draw();
+
+      themeToggle.addEventListener('click', () => {
+        const root = document.documentElement;
+        if (root.classList.contains('light')) {
+          root.classList.remove('light');
+          localStorage.setItem('theme', 'dark');
+        } else {
+          root.classList.add('light');
+          localStorage.setItem('theme', 'light');
+        }
+        updateGridColor();
+      });
+    </script>
+  </body>
+</html>

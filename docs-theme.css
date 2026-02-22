@@ -1,0 +1,111 @@
+/* Shared documentation styles for VitePress sites */
+:root {
+    /* Mapped to shared theme colors */
+    --vp-c-brand-1: #3b82f6;
+    --vp-c-brand-2: #8b5cf6;
+    --vp-home-hero-name-color: transparent;
+    --vp-home-hero-name-background: linear-gradient(135deg, var(--vp-c-brand-1) 0%, var(--vp-c-brand-2) 100%);
+}
+
+.dark {
+    --vp-c-bg: #0a0a0c;
+    --vp-c-bg-soft: #121217;
+    --vp-c-bg-mute: #1e1e24;
+}
+
+.VPFeature {
+    border-radius: 12px !important;
+    background-color: var(--vp-c-bg-soft) !important;
+    border: 1px solid var(--vp-c-border) !important;
+    transition: all 0.3s ease;
+    padding: 24px !important;
+}
+
+.VPFeature:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    border-color: var(--vp-c-brand-1) !important;
+}
+
+.VPFeature .icon {
+    background-color: var(--vp-c-bg-mute);
+    width: 48px;
+    height: 48px;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    margin-bottom: 20px !important;
+    font-size: 24px;
+    border: 1px solid var(--vp-c-divider);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.VPFeature h2 {
+    font-weight: 700 !important;
+    font-size: 20px !important;
+    margin-bottom: 12px !important;
+    color: var(--vp-c-text-1) !important;
+    border-top: none !important;
+    padding-top: 0 !important;
+    margin-top: 0 !important;
+}
+
+.VPFeature .details {
+    font-size: 15px !important;
+    line-height: 1.6 !important;
+    color: var(--vp-c-text-2) !important;
+    margin-bottom: 20px !important;
+}
+
+.VPFeature .link {
+    color: var(--vp-c-brand-1) !important;
+    font-weight: 600 !important;
+    font-size: 15px !important;
+    display: flex;
+    align-items: center;
+    text-decoration: none !important;
+}
+
+.VPFeature .link::after {
+    content: ' →';
+    margin-left: 4px;
+    transition: transform 0.2s ease;
+}
+
+.VPFeature:hover .link::after {
+    transform: translateX(4px);
+}
+
+/* Home page content adjustments */
+.vp-doc h2 {
+    padding-top: 24px;
+    margin-top: 24px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    border-top: none;
+}
+
+.vp-doc h3 {
+    margin-top: 32px;
+    font-weight: 700;
+    color: var(--vp-c-brand-1);
+}
+
+.vp-doc ul {
+    list-style-type: none;
+    padding-left: 1.5em;
+}
+
+.vp-doc ul li {
+    padding: 4px 0;
+    position: relative;
+}
+
+.vp-doc ul li::before {
+    content: '•';
+    color: var(--vp-c-brand-1);
+    font-weight: bold;
+    position: absolute;
+    left: -1em;
+}

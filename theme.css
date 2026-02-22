@@ -1,0 +1,57 @@
+/* Shared Theme Colors */
+:root {
+  --bg-primary: #0a0a0c;
+  --bg-secondary: #121217;
+  --bg-accent: #1e1e24;
+  
+  --text-primary: #ffffff;
+  --text-secondary: #a1a1aa;
+  
+  --brand-primary: #3b82f6;
+  --brand-secondary: #6366f1;
+  --brand-tertiary: #a855f7;
+  
+  --gradient-brand: linear-gradient(135deg, var(--brand-primary), var(--brand-secondary), var(--brand-tertiary));
+  
+  --border-color: rgba(255, 255, 255, 0.1);
+  --glass-bg: rgba(255, 255, 255, 0.03);
+  --glass-border: rgba(255, 255, 255, 0.05);
+  
+  --grid-line: rgba(255, 255, 255, 0.03);
+  --tag-bg: rgba(255, 255, 255, 0.05);
+  --tag-border: rgba(255, 255, 255, 0.1);
+}
+
+:root.light {
+  --bg-primary: #f9fafb;
+  --bg-secondary: #f3f4f6;
+  --bg-accent: #e5e7eb;
+  
+  --text-primary: #111827;
+  --text-secondary: #4b5563;
+  
+  --brand-primary: #2563eb;
+  --brand-secondary: #4f46e5;
+  --brand-tertiary: #9333ea;
+  
+  --gradient-brand: linear-gradient(135deg, var(--brand-primary), var(--brand-secondary), var(--brand-tertiary));
+  
+  --border-color: rgba(0, 0, 0, 0.1);
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --glass-border: rgba(0, 0, 0, 0.1);
+  
+  --grid-line: rgba(0, 0, 0, 0.05);
+  --tag-bg: rgba(0, 0, 0, 0.05);
+  --tag-border: rgba(0, 0, 0, 0.1);
+}
+
+/* Base Body Styles (Can be overridden by specific sites but provides a fallback) */
+body.theme-shared {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
