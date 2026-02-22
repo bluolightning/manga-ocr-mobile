@@ -1,82 +1,39 @@
-name: Deploy
+name: Deploy Pages
 
 on:
-    workflow_dispatch: {}
-    push:
-        branches:
-            - main
-        paths:
-            - 'docs/**'
-            - '.github/workflows/deploy.yml'
+  push:
+    branches:
+      - gh-pages # Triggers when the Source Repo pushes the built files here
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
 
 concurrency:
-  group: ${{ github.workflow }}
+  group: "pages"
   cancel-in-progress: true
 
-env:
-    VITE_BASE: /manga-ocr-mobile/
-    VITE_HOSTNAME: https://bluolightning.github.io
-
 jobs:
-    deploy:
-        runs-on: ubuntu-latest
-        defaults:
-          run:
-            working-directory: "docs"
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout pushed files
+        uses: actions/checkout@v5
+        with:
+          ref: gh-pages # Checks out the newly pushed HTML/CSS files
 
-        permissions:
-            contents: read
-            pages: write
-            id-token: write
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
 
-        environment:
-            name: github-pages
-            url: ${{ steps.deployment.outputs.page_url }}
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '.' # Uploads everything from the gh-pages branch
 
-        steps:
-            - name: Checkout
-              uses: actions/checkout@v5
-              with:
-                  fetch-depth: 0
-
-            - name: Install Node.js
-              uses: actions/setup-node@v4
-              with:
-                  node-version: 22
-
-            - name: Install pnpm
-              uses: pnpm/action-setup@v4
-              with:
-                version: 10
-                run_install: false
-
-            - name: Get pnpm store directory
-              shell: bash
-              run: |
-                echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
-
-            - uses: actions/cache@v4
-              name: Setup pnpm cache
-              with:
-                path: ${{ env.STORE_PATH }}
-                key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-                restore-keys: |
-                  ${{ runner.os }}-pnpm-store-
-
-            - name: Install dependencies
-              run: pnpm install
-
-            - name: Build
-              run: pnpm build
-
-            - name: Configure pages
-              uses: actions/configure-pages@v5
-
-            - name: Upload pages artifact
-              uses: actions/upload-pages-artifact@v3
-              with:
-                  path: docs/dist
-
-            - name: Deploy
-              id: deployment
-              uses: actions/deploy-pages@v4
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
